@@ -17,6 +17,7 @@ class VehicleStatusFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
+      padding:EdgeInsets.all(10),
       child: Row(
         children: <Widget>[
           StatusButton(
@@ -50,6 +51,7 @@ class VehicleStatusFilter extends StatelessWidget {
             count: statusCounts['untrackedVehicles'] ?? 0,
           ),
         ],
+      
       ),
     );
   }

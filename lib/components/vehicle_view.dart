@@ -1,90 +1,91 @@
 import 'package:flutter/material.dart';
-import '../Service/api_service.dart'; // Ensure this import matches your actual API service file
-import '../widgets/VehicleStatusFilter.dart'; // Import the VehicleStatusFilter widget
+import '../Service/api_service.dart';
+import '../widgets/VehicleStatusFilter.dart';
 
 class VehicleStatusScreen extends StatefulWidget {
   const VehicleStatusScreen({super.key});
 
   @override
-  _VehicleStatusScreenState createState() => _VehicleStatusScreenState();
+  VehicleStatusScreenState createState() => VehicleStatusScreenState();
 }
 
-class _VehicleStatusScreenState extends State<VehicleStatusScreen> {
-  Map<String, int> _statusCounts = {};
-  String _selectedStatus = 'All';
-  List<Vehicle> _vehicleList = [];
+class VehicleStatusScreenState extends State<VehicleStatusScreen>
+    with AutomaticKeepAliveClientMixin<VehicleStatusScreen> {
+  Map<String, int> statusCounts = {};
+  String selectedStatus = 'All';
+  List<Vehicle> vehicleList = [];
+  List<Vehicle> allVehicles = []; // Cached list of all vehicles
 
   @override
   void initState() {
     super.initState();
-    _loadVehicleCounts();
-    _loadVehicleList();
+    loadVehicleCounts();
+    loadVehicleList();
+    filterVehicleList();
   }
 
-  Future<void> _loadVehicleCounts() async {
+  Future<void> loadVehicleCounts() async {
     try {
       Map<String, int> counts = await fetchVehicleCounts();
       setState(() {
-        _statusCounts = counts;
+        statusCounts = counts;
       });
     } catch (e) {
       print('Error loading vehicle counts: $e');
     }
   }
 
-  Future<void> _loadVehicleList() async {
+  Future<void> loadVehicleList() async {
     try {
       List<Vehicle> vehicles = await fetchVehicleList();
       setState(() {
-        _vehicleList = vehicles;
+        allVehicles = vehicles; // Cache the list
+        vehicleList = vehicles; // Initially display all vehicles
       });
     } catch (e) {
       print('Error loading vehicle list: $e');
     }
   }
 
-  void _onStatusSelected(String status) {
+  void onStatusSelected(String status) {
     setState(() {
-      _selectedStatus = status;
-      _filterVehicleList();
+      selectedStatus = status;
+      filterVehicleList();
     });
   }
 
-  void _filterVehicleList() {
-    // Implement filtering logic based on _selectedStatus
-    // For example, filtering out vehicles based on status
-    // Note: You might need to adjust this logic based on how your data is structured
-
-    // Sample filtering logic
-    if (_selectedStatus == 'All') {
-      _loadVehicleList(); // Reload all vehicles
-    } else {
-      // Filter based on status
-      // Replace with actual filtering logic as needed
-      _vehicleList = _vehicleList.where((vehicle) => vehicle.status == _selectedStatus).toList();
-    }
+  void filterVehicleList() {
+    setState(() {
+      if (selectedStatus == 'All') {
+        vehicleList = allVehicles;
+      } else {
+        vehicleList = allVehicles
+            .where((vehicle) => vehicle.status == selectedStatus)
+            .toList();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required when using AutomaticKeepAliveClientMixin
     return Column(
       children: [
         VehicleStatusFilter(
-          onStatusSelected: _onStatusSelected,
-          selectedStatus: _selectedStatus,
-          statusCounts: _statusCounts,
+          onStatusSelected: onStatusSelected,
+          selectedStatus: selectedStatus,
+          statusCounts: statusCounts,
         ),
         Expanded(
-          child: _vehicleList.isEmpty
-              ? Center(child: CircularProgressIndicator())
+          child: vehicleList.isEmpty
+              ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
-                  itemCount: _vehicleList.length,
+                  itemCount: vehicleList.length,
                   itemBuilder: (context, index) {
-                    final vehicle = _vehicleList[index];
+                    final vehicle = vehicleList[index];
                     return ListTile(
                       title: Text(vehicle.name),
                       subtitle: Text('Status: ${vehicle.status}'),
-                      // Add more details or widgets as needed
                     );
                   },
                 ),
@@ -92,9 +93,12 @@ class _VehicleStatusScreenState extends State<VehicleStatusScreen> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true; // Keeps the state alive
 }
 
-// Define a Vehicle class if not already defined
+// Define the Vehicle class if not already defined
 class Vehicle {
   final String name;
   final String status;
@@ -104,11 +108,18 @@ class Vehicle {
 
 // Example fetchVehicleList function
 Future<List<Vehicle>> fetchVehicleList() async {
-  // Replace this with actual API call to fetch vehicles
-  // Simulating fetching data
-  await Future.delayed(Duration(seconds: 1)); // Simulate network delay
+  // Simulate network delay
   return [
     Vehicle(name: 'Vehicle 1', status: 'Running'),
-    Vehicle(name: 'Vehicle 2', status: 'Stopped'),git 
+    Vehicle(name: 'Vehicle 2', status: 'Stopped'),
+    Vehicle(name: 'Vehicle 3', status: 'Stopped'),
+    Vehicle(name: 'Vehicle 4', status: 'Stopped'),
+    Vehicle(name: 'Vehicle 5', status: 'NRD'),
+    Vehicle(name: 'Vehicle 6', status: 'NRD'),
+    Vehicle(name: 'Vehicle 7', status: 'Untracked'),
+    Vehicle(name: 'Vehicle 8', status: 'Untracked'),
+    Vehicle(name: 'Vehicle o', status: 'NRD'),
+
     // Add more vehicles
-  ];
+  ];
+}
