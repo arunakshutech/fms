@@ -1,0 +1,35 @@
+name: fmslite
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.6.0
+  fluttertoast: ^8.2.6
+  cupertino_icons: ^1.0.8
+  lottie: ^3.1.2
+  flutter_secure_storage: ^9.2.2
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/login.jpg
+    - assets/logo.png
+    - assets/dash.json
+    - assets/live.json
+    - assets/map.json
+    - assets/profile.json
+    - assets/reports.json
+    - assets/trackbyv.json
+    - assets/trackc.json
