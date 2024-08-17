@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Service/api_service.dart';
 import '../widgets/VehicleStatusFilter.dart';
+import '../components/vehicle_card.dart'; // Import the new widget
 
 class VehicleStatusScreen extends StatefulWidget {
   const VehicleStatusScreen({super.key});
@@ -21,7 +22,6 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
     super.initState();
     loadVehicleCounts();
     loadVehicleList();
-    filterVehicleList();
   }
 
   Future<void> loadVehicleCounts() async {
@@ -83,9 +83,14 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
                   itemCount: vehicleList.length,
                   itemBuilder: (context, index) {
                     final vehicle = vehicleList[index];
-                    return ListTile(
-                      title: Text(vehicle.name),
-                      subtitle: Text('Status: ${vehicle.status}'),
+                    return VehicleCard(
+                      vehicleNumber: vehicle.vehicleNumber,
+                      status: vehicle.status,
+                      lastUpdate: 'Last update info', // Replace with actual data
+                      lastLocation: 'Last location info', // Replace with actual data
+                      todaysStops: 'Stops info', // Replace with actual data
+                      todaysKm: 'KM info', // Replace with actual data
+                      batteryStatus: 'Battery info', // Replace with actual data
                     );
                   },
                 ),
@@ -96,30 +101,4 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
 
   @override
   bool get wantKeepAlive => true; // Keeps the state alive
-}
-
-// Define the Vehicle class if not already defined
-class Vehicle {
-  final String name;
-  final String status;
-
-  Vehicle({required this.name, required this.status});
-}
-
-// Example fetchVehicleList function
-Future<List<Vehicle>> fetchVehicleList() async {
-  // Simulate network delay
-  return [
-    Vehicle(name: 'Vehicle 1', status: 'Running'),
-    Vehicle(name: 'Vehicle 2', status: 'Stopped'),
-    Vehicle(name: 'Vehicle 3', status: 'Stopped'),
-    Vehicle(name: 'Vehicle 4', status: 'Stopped'),
-    Vehicle(name: 'Vehicle 5', status: 'NRD'),
-    Vehicle(name: 'Vehicle 6', status: 'NRD'),
-    Vehicle(name: 'Vehicle 7', status: 'Untracked'),
-    Vehicle(name: 'Vehicle 8', status: 'Untracked'),
-    Vehicle(name: 'Vehicle o', status: 'NRD'),
-
-    // Add more vehicles
-  ];
 }

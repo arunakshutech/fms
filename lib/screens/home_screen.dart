@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fmslite/components/vehicle_search_delegate.dart';
 import '../components/custom_tab_indicator.dart';
-import '../components/vehicle_view.dart';  // Import your VehicleStatusScreen
+import 'vehicle_status_screen.dart';  // Import your VehicleStatusScreen
 import '../animated_drawer.dart';  // Import your Animated Drawer
  // Import your search delegate
 
