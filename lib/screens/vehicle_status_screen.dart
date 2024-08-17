@@ -22,6 +22,7 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
     super.initState();
     loadVehicleCounts();
     loadVehicleList();
+    filterVehicleList();
   }
 
   Future<void> loadVehicleCounts() async {
@@ -86,8 +87,8 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
                     return VehicleCard(
                       vehicleNumber: vehicle.vehicleNumber,
                       status: vehicle.status,
-                      lastUpdate: 'Last update info', // Replace with actual data
-                      lastLocation: 'Last location info', // Replace with actual data
+                      lastUpdate: vehicle.vehicleNumber, // Replace with actual data
+                      lastLocation:vehicle.lastLocation, // Replace with actual data
                       todaysStops: 'Stops info', // Replace with actual data
                       todaysKm: 'KM info', // Replace with actual data
                       batteryStatus: 'Battery info', // Replace with actual data

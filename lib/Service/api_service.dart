@@ -8,10 +8,12 @@ final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 class Vehicle {
   final String vehicleNumber;
   final String status;
+  final String lastLocation;
 
   Vehicle({
     required this.vehicleNumber,
     required this.status,
+    required this.lastLocation,
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
@@ -30,6 +32,7 @@ class Vehicle {
     return Vehicle(
       vehicleNumber: json['vehicleNumber'] ?? 'Unknown',
       status: status,
+      lastLocation: json['lastLocation']??'unknown',
     );
   }
 }
