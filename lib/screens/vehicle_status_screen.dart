@@ -43,6 +43,7 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
         allVehicles = vehicles; // Cache the list
         vehicleList = vehicles; // Initially display all vehicles
       });
+      filterVehicleList();
     } catch (e) {
       print('Error loading vehicle list: $e');
     }
@@ -92,6 +93,7 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
                       todaysStops: 'Stops info', // Replace with actual data
                       todaysKm: 'KM info', // Replace with actual data
                       batteryStatus: 'Battery info', // Replace with actual data
+                     // Replace with actual data
                     );
                   },
                 ),

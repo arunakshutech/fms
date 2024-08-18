@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fmslite/components/vehicle_search_delegate.dart';
 import '../components/custom_tab_indicator.dart';
-import 'vehicle_status_screen.dart';  // Import your VehicleStatusScreen
-import '../animated_drawer.dart';  // Import your Animated Drawer
- // Import your search delegate
+import 'VehicleMapScreen.dart';
+import 'vehicle_status_screen.dart'; // Import your VehicleStatusScreen
+import '../screens/VehicleMapScreen.dart'; // Import your VehicleMapScreen
+import '../animated_drawer.dart'; // Import your Animated Drawer
+import '../components/success.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +14,23 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final GlobalKey<VehicleStatusScreenState> vehicleStatusScreenKey1 = GlobalKey<VehicleStatusScreenState>();
-  final GlobalKey<VehicleStatusScreenState> vehicleStatusScreenKey2 = GlobalKey<VehicleStatusScreenState>();
+  final GlobalKey<VehicleStatusScreenState> vehicleStatusScreenKey1 =
+      GlobalKey<VehicleStatusScreenState>();
+
+  final List<Map<String, dynamic>> vehiclesData = [
+    {
+      "vehicleId": 264208,
+      "vehicleNumber": "HR55AN9004",
+      "latitude": 28.30452,
+      "longitude": 76.875795,
+      "lastLocation": "AT safexpress ncr-11 parking",
+      // Add other details if necessary
+    },
+    // Add more vehicles here
+  ];
 
   @override
   void initState() {
@@ -30,19 +45,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   void _refreshData() {
+    showSuccessToast('refreshed successfully');
     vehicleStatusScreenKey1.currentState?.loadVehicleCounts();
     vehicleStatusScreenKey1.currentState?.loadVehicleList();
     vehicleStatusScreenKey1.currentState?.filterVehicleList();
-    
-    vehicleStatusScreenKey2.currentState?.loadVehicleCounts();
-    vehicleStatusScreenKey2.currentState?.loadVehicleList();
-    vehicleStatusScreenKey2.currentState?.filterVehicleList();
   }
 
   void _showSearch() {
     showSearch(
       context: context,
-      delegate: VehicleSearchDelegate(),  // Use your custom search delegate
+      delegate: VehicleSearchDelegate(), // Use your custom search delegate
     );
   }
 
@@ -54,35 +66,41 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: _showSearch,  // Trigger the search bar
+            onPressed: _showSearch, // Trigger the search bar
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 157, 222, 255),
       ),
-      drawer: const AnimatedDrawer(),  // Include your animated drawer here
+      drawer: const AnimatedDrawer(), // Include your animated drawer here
       body: TabBarView(
         controller: _tabController,
         children: [
-          VehicleStatusScreen(key: vehicleStatusScreenKey1),  // Assign key to maintain state
-          VehicleStatusScreen(key: vehicleStatusScreenKey2),
+          VehicleStatusScreen(
+              key: vehicleStatusScreenKey1), // Assign key to maintain state
+          VehicleMapScreen(vehiclesData: vehiclesData), // Show vehicles on the map
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _refreshData,  // Trigger the refresh
+        onPressed: _refreshData, // Trigger the refresh
         child: const Icon(Icons.refresh),
       ),
       bottomNavigationBar: Container(
-        color: const Color.fromARGB(255, 143, 189, 253),  // Set the background color
-        height: 60.0,            // Set the height
+        color: const Color.fromARGB(
+            255, 143, 189, 253), // Set the background color
+        height: 60.0, // Set the height
         child: TabBar(
           indicator: RoundedTabIndicator(
             color: Colors.white, // Indicator color
-            radius: 10.0,        // Radius for the rounded effect
+            radius: 10.0, // Radius for the rounded effect
           ),
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.list, size: 24),text: 'List'), // Adjust icon size if needed
-            Tab(icon: Icon(Icons.map, size: 24),text: 'Map'),  // Adjust icon size if needed
+            Tab(
+                icon: Icon(Icons.list, size: 24),
+                text: 'List'), // Adjust icon size if needed
+            Tab(
+                icon: Icon(Icons.map, size: 24),
+                text: 'Map'), // Adjust icon size if needed
           ],
         ),
       ),

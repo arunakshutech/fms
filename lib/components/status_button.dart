@@ -7,7 +7,7 @@ class StatusButton extends StatelessWidget {
   final int count;
 
   const StatusButton({
-    super.key, 
+    super.key,
     required this.label,
     required this.isSelected,
     required this.onStatusSelected,
@@ -16,20 +16,50 @@ class StatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Determine button color based on label
+    Color buttonColor;
+    Color textColor;
+
+    switch (label.toLowerCase()) {
+      case 'all':
+        buttonColor = Colors.blue;
+        textColor = Colors.white;
+        break;
+      case 'stopped':
+        buttonColor = Colors.red;
+        textColor = Colors.white;
+        break;
+      case 'nrd':
+        buttonColor = Colors.grey;
+        textColor = Colors.white;
+        break;
+      case 'running':
+        buttonColor = const Color.fromARGB(255, 4, 127, 0);
+        textColor = Colors.white;
+        break;
+      case 'untracked':
+        buttonColor = const Color.fromARGB(255, 255, 230, 3);
+        textColor = Colors.black;
+        break;
+      default:
+        buttonColor = Colors.grey[300]!; // Default color if label doesn't match any case
+        textColor = Colors.black;
+    }
+
     return GestureDetector(
       onTap: () => onStatusSelected(label),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        margin: EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 4.0),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue : Colors.grey[300],
+          color: isSelected ? buttonColor : Colors.grey[300],
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Center(
           child: Text(
             '$label (${count > 0 ? count : ''})',
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
+              color: isSelected ? textColor : Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -32,7 +32,7 @@ class Vehicle {
     return Vehicle(
       vehicleNumber: json['vehicleNumber'] ?? 'Unknown',
       status: status,
-      lastLocation: json['lastLocation']??'unknown',
+      lastLocation: json['lastLocation'] ?? 'unknown',
     );
   }
 }
@@ -40,7 +40,8 @@ class Vehicle {
 // Fetch Vehicle List from API
 Future<List<Vehicle>> fetchVehicleList() async {
   final dio = Dio();
-  final url = 'http://52.186.104.146:8086/FMSLiteServices/fmslite/V2/post/json/getVehicleTrackingDetails';
+  final url =
+      'http://52.186.104.146:8086/FMSLiteServices/fmslite/V2/post/json/getVehicleTrackingDetails';
   final payload = {
     "userId": "3104",
     "transporterId": "null",
@@ -62,6 +63,7 @@ Future<List<Vehicle>> fetchVehicleList() async {
 
     if (response.statusCode == 200) {
       final data = response.data;
+      print(data);
       final List<dynamic> vehicleData = data['data'];
       return vehicleData.map((json) => Vehicle.fromJson(json)).toList();
     } else {
@@ -85,7 +87,8 @@ Future<Map<String, int>> fetchVehicleCounts() async {
   int userId = userdata['userId'];
 
   // API endpoint
-  final String apiUrl = 'http://52.186.104.146:8085/FMSSmart/dashboard/post/json/getTransporterStatusDashbaordCounts';
+  final String apiUrl =
+      'http://52.186.104.146:8085/FMSSmart/dashboard/post/json/getTransporterStatusDashbaordCounts';
   final Map<String, dynamic> payload = {'userId': userId};
 
   try {
