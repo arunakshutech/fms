@@ -16,6 +16,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   http: ^1.2.2
   google_maps_flutter: ^2.9.0
+  vibration: ^2.0.0
 
   
 
@@ -36,3 +37,9 @@ flutter:
     - assets/reports.json
     - assets/trackbyv.json
     - assets/trackc.json
+
+  fonts:
+    - family: CustomFont
+      fonts:
+        - asset: assets/Roboto-Bold.ttf
+          weight: 700

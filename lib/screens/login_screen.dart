@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';  // For displaying toast messages
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:vibration/vibration.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback onLoginSuccess;
@@ -31,6 +32,16 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   Future<void> _login() async {
     final String email = _emailController.text;
     final String password = _passwordController.text;
+
+    try {
+    // Check if the device can vibrate
+    if (await Vibration.hasVibrator() ?? false) {
+      Vibration.vibrate(duration: 100); // Trigger vibration
+    }
+      // No toast is shown
+    } catch (e) {
+      print('your mobile didnt have vibration ');
+    }
 
     final Map<String, dynamic> payload = {
       "filterdata": {

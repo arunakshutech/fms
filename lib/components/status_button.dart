@@ -30,7 +30,7 @@ class StatusButton extends StatelessWidget {
         textColor = Colors.white;
         break;
       case 'nrd':
-        buttonColor = Colors.grey;
+        buttonColor = const Color.fromARGB(255, 112, 112, 112);
         textColor = Colors.white;
         break;
       case 'running':

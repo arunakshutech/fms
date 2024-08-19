@@ -22,103 +22,114 @@ class VehicleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
-      color: const Color.fromARGB(255, 220, 232, 255),
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Vehicle Icon and Status Row
-            Row(
-              children: [
-                const Icon(
-                  Icons.directions_car, // Vehicle icon
-                  size: 40,
-                  color: Colors.blue,
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    'Vehicle No: $vehicleNumber',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                _buildStatusButton(status),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Data Table
-            Table(
-              border: TableBorder.all(color: Colors.grey),
-              columnWidths: const {
-                0: FixedColumnWidth(150.0),
-                1: FlexColumnWidth(),
-              },
-              children: [
-                _buildTableRow('Last Update', lastUpdate),
-                _buildTableRow('Last Location', lastLocation),
-                _buildTableRow("Today's Stops", todaysStops),
-                _buildTableRow("Today's KM", todaysKm),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            // Action Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.battery_charging_full_rounded,
-                    size: 30.0,
-                    color: Colors.green,
-                  ),
-                  onPressed: () {
-                    // Battery status icon action
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.warning_amber_rounded,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    // Show full-screen bottom sheet on details icon click
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => _buildBottomSheet(context),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.location_pin,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    // Map icon action
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.share,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    // Share icon action
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+    
+  elevation: 20,
+  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+  child: Container(
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color.fromARGB(255, 177, 182, 255),Color.fromARGB(255, 166, 130, 250)], // Replace with your desired colors
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
-    );
+      borderRadius: BorderRadius.all(Radius.circular(15)), // Match Card's border radius
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Vehicle Icon and Status Row
+          Row(
+            children: [
+              const Icon(
+                Icons.directions_car, // Vehicle icon
+                size: 40,
+                color: Colors.blue,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  'Vehicle No: $vehicleNumber',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              _buildStatusButton(status),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Data Table
+          Table(
+            border: TableBorder.all(color: Colors.grey),
+            columnWidths: const {
+              0: FixedColumnWidth(150.0),
+              1: FlexColumnWidth(),
+            },
+            children: [
+              _buildTableRow('Last Update', lastUpdate),
+              _buildTableRow('Last Location', lastLocation),
+              _buildTableRow("Today's Stops", todaysStops),
+              _buildTableRow("Today's KM", todaysKm),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          // Action Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.battery_charging_full_rounded,
+                  size: 30.0,
+                  color: Colors.green,
+                ),
+                onPressed: () {
+                  // Battery status icon action
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.warning_amber_rounded,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  // Show full-screen bottom sheet on details icon click
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => _buildBottomSheet(context),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.location_pin,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  // Map icon action
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.share,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  // Share icon action
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  ),
+);
+
   }
 
   // Method to build the status button
@@ -132,15 +143,15 @@ class VehicleCard extends StatelessWidget {
         textColor = Colors.white;
         break;
       case 'Stopped':
-        backgroundColor = const Color.fromARGB(255, 255, 106, 95);
+        backgroundColor = const Color.fromARGB(255, 228, 15, 0);
         textColor = Colors.white;
         break;
       case 'NRD':
-        backgroundColor = const Color.fromARGB(255, 62, 62, 62);
+        backgroundColor = const Color.fromARGB(255, 90, 90, 90);
         textColor = Colors.white;
         break;
       default:
-        backgroundColor = Colors.grey;
+        backgroundColor = const Color.fromARGB(255, 61, 61, 61);
         textColor = Colors.white;
     }
 

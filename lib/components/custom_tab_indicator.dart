@@ -23,7 +23,7 @@ class _RoundedPainter extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
     final Offset circleOffset = Offset(
       offset.dx + cfg.size!.width / 2,
-      cfg.size!.height - radius-24,
+      cfg.size!.height - radius-19,
     );
     canvas.drawCircle(circleOffset, 30, _paint);
   }

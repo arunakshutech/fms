@@ -72,16 +72,20 @@ class VehicleStatusScreenState extends State<VehicleStatusScreen>
   Widget build(BuildContext context) {
     super.build(context); // Required when using AutomaticKeepAliveClientMixin
     return Column(
+
       children: [
+        
         VehicleStatusFilter(
           onStatusSelected: onStatusSelected,
           selectedStatus: selectedStatus,
           statusCounts: statusCounts,
         ),
         Expanded(
+          
           child: vehicleList.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
+                
                   itemCount: vehicleList.length,
                   itemBuilder: (context, index) {
                     final vehicle = vehicleList[index];

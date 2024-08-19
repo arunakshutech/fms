@@ -12,6 +12,7 @@ class RouteManager extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FMS Lite',
       theme: ThemeData(
+        fontFamily: 'CustomFont',
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(), // Set SplashScreen as home
