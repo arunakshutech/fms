@@ -3,7 +3,7 @@ import 'package:fmslite/components/vehicle_search_delegate.dart';
 import '../components/custom_tab_indicator.dart';
 import 'VehicleMapScreen.dart';
 import 'vehicle_status_screen.dart'; // Import your VehicleStatusScreen
-import '../screens/VehicleMapScreen.dart'; // Import your VehicleMapScreen
+// Import your VehicleMapScreen
 import '../animated_drawer.dart'; // Import your Animated Drawer
 import '../components/success.dart';
 
@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -100,8 +101,7 @@ class _HomeScreenState extends State<HomeScreen>
                 text: 'List'), // Adjust icon size if needed
             Tab(
                 icon: Icon(Icons.map, size: 24),
-                text: 'Map'), // Adjust icon size if needed
-          ],
+                text: 'Map')          ],
         ),
       ),
     );

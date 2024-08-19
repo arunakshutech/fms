@@ -17,7 +17,7 @@ class VehicleStatusFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding:EdgeInsets.all(10),
+      padding:const EdgeInsets.all(10),
       child: Row(
         children: <Widget>[
           StatusButton(

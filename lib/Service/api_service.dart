@@ -113,6 +113,7 @@ Future<Map<String, int>> fetchVehicleCounts() async {
     }
   } catch (e) {
     print('Error fetching data: $e');
+    // ignore: use_rethrow_when_possible
     throw e;
   }
 }

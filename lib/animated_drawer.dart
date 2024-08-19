@@ -9,6 +9,7 @@ class AnimatedDrawer extends StatefulWidget {
   const AnimatedDrawer({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AnimatedDrawerState createState() => _AnimatedDrawerState();
 }
 
@@ -91,7 +92,7 @@ class _AnimatedDrawerState extends State<AnimatedDrawer> {
   }
 
 Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
 
   // Retrieve userdata JSON from secure storage
   String? userdataJson = await storage.read(key: 'userdata');
@@ -109,6 +110,7 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
       // Check if loginHistoryId is available
       if (loginHistoryId == null && !isLogoutFromAll) {
         if (mounted) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Login history ID not found.')),
           );
@@ -138,9 +140,9 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {
-          print('Logged out successfully');
           await storage.deleteAll(); // Clear secure storage on logout
           if (mounted) {
+            // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => LoginScreen(onLoginSuccess: () {
@@ -153,6 +155,7 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
           }
         } else {
           if (mounted) {
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(responseData['message'] ?? 'Logout failed')),
             );
@@ -160,6 +163,7 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
         }
       } else {
         if (mounted) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to communicate with server.')),
           );
@@ -167,6 +171,7 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
       }
     } catch (error) {
       if (mounted) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $error')),
         );
@@ -174,6 +179,7 @@ Future<void> _logout(bool isLogoutFromAll, BuildContext context) async {
     }
   } else {
     if (mounted) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User data not found.')),
       );

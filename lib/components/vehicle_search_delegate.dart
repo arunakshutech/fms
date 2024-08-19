@@ -101,7 +101,6 @@ class VehicleSearchDelegate extends SearchDelegate<String> {
           .where((vehicle) => vehicle.vehicleNumber.toLowerCase().contains(query.toLowerCase()))
           .toList();
     } catch (e) {
-      print('Error searching vehicles: $e');
       return [];
     }
   }

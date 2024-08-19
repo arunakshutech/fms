@@ -4,9 +4,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class VehicleMapScreen extends StatefulWidget {
   final List<Map<String, dynamic>> vehiclesData;
 
-  VehicleMapScreen({required this.vehiclesData});
+  const VehicleMapScreen({super.key, required this.vehiclesData});
 
   @override
+  // ignore: library_private_types_in_public_api
   _VehicleMapScreenState createState() => _VehicleMapScreenState();
 }
 

@@ -10,6 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RouteManager(); // Use RouteManager for routing
+    return const RouteManager(); // Use RouteManager for routing
   }
 }

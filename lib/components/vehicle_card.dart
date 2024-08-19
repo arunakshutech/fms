@@ -9,7 +9,7 @@ class VehicleCard extends StatelessWidget {
   final String todaysKm;
   final String batteryStatus;
 
-  const VehicleCard({
+  const VehicleCard({super.key, 
     required this.vehicleNumber,
     required this.status,
     required this.lastUpdate,
@@ -150,7 +150,7 @@ class VehicleCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 11.0, vertical: 3.0),
+        padding: const EdgeInsets.symmetric(horizontal: 11.0, vertical: 3.0),
       ),
       onPressed: () {
         // Status button action
